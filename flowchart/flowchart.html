@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>협업 단계 Flow</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/flowchart.css" />
+  </head>
+  <body>
+    <h1>협업 단계 Flow</h1>
+    <div class="flowchart">
+      <div class="node" id="step1">
+        협업을 시작합니다.<br />
+        준비가 되셨나요?
+        <div class="buttons">
+          <button data-answer="yes" data-step="1">Yes</button>
+          <button data-answer="no" data-step="1">No</button>
+        </div>
+      </div>
+
+      <div class="node hidden" id="step2yes">
+        👍 준비 완료! <br />
+        깃, 노션, 디스코드 세팅
+        <div class="buttons">
+          <button data-answer="next" data-step="2">다음</button>
+        </div>
+      </div>
+
+      <div class="node hidden" id="step2no">
+        📝 준비가 덜 되었네요. <br />
+        먼저 계정과 도구를 준비하세요.
+        <div class="buttons">
+          <button data-answer="retry" data-step="2">다시 확인</button>
+        </div>
+      </div>
+
+      <div class="node hidden" id="step3">
+        👥 팀원들과 커뮤니케이션을 시작하세요!
+      </div>
+    </div>
+
+    <script src="/js/flowchart.js"></script>
+  </body>
+</html>

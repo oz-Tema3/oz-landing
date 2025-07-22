@@ -1,0 +1,22 @@
+<input type="text" id="searchBox" placeholder="검색어를 입력하세요" />
+<ul id="resultList">
+  <li>Notion AI — 생산성 — Notion, Google Docs</li>
+  <li>Jasper — 생산성 — Word, PowerPoint</li>
+  <li>Otter.ai — 생산성 — Zoom, Google Meet</li>
+  <li>Zapier — 자동화 — Slack, Gmail, Excel</li>
+  <li>Make — 자동화 — Google Sheets, Trello</li>
+  <li>IFTTT — 자동화 — Twitter, Dropbox</li>
+  <!-- 나머지 모든 툴들도 여기에 추가 -->
+</ul>
+
+<script>
+  document.getElementById("searchBox").addEventListener("input", function () {
+    const query = this.value.toLowerCase();
+    const items = document.querySelectorAll("#resultList li");
+    items.forEach((item) => {
+      item.style.display = item.textContent.toLowerCase().includes(query)
+        ? ""
+        : "none";
+    });
+  });
+</script>

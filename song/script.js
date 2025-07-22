@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "1. 올바른 프로젝트 폴더로 이동했는지 확인하세요.\n2. 아직 Git 저장소를 만들지 않았다면 아래 명령어를 실행하세요:\n<pre><code>git init</code></pre>",
     },
     {
-      keywords: ["remote origin already exists"],
+      keywords: ["fatal", "remote", "origin", "already", "exists"],
       title: "fatal: remote origin already exists.",
       cause:
         "이미 'origin'이라는 이름의 원격 저장소가 연결되어 있는데, 또 추가하려고 할 때 발생합니다.",
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "기존 연결을 확인하고, 이름을 바꾸거나 삭제 후 다시 시도하세요.\n1. 연결된 원격 저장소 확인:\n<pre><code>git remote -v</code></pre>\n2. 기존 origin 연결 삭제:\n<pre><code>git remote rm origin</code></pre>",
     },
     {
-      keywords: ["failed to push some refs"],
+      keywords: ["failed", "to push", "some refs"],
       title: "error: failed to push some refs to '...' ",
       cause:
         "원격 저장소에는 있지만 내 로컬 저장소에는 없는 변경사항(커밋)이 있을 때 발생합니다. 다른 사람이 내가 작업하는 동안 새로운 내용을 푸시한 경우입니다.",
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '1. 브랜치 이름이 정확한지 확인하세요.\n2. 만약 첫 커밋이라면, 파일을 먼저 커밋해야 합니다:\n<pre><code>git add .\ngit commit -m "Initial commit"</code></pre>',
     },
     {
-      keywords: ["pull is not possible because you have unmerged files"],
+      keywords: ["pull", "is not possible", "because you have unmerged files"],
       title: "error: pulling is not possible because you have unmerged files.",
       cause:
         "이전에 `git pull`이나 `git merge`를 하다가 충돌(conflict)이 발생했고, 아직 해결되지 않은 상태에서 다시 pull을 시도할 때 발생합니다.",
@@ -249,6 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // 오류 검색 기능
   errorSearchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase();
+
+    // ----- 디버깅을 위해 아래 2줄 추가 -----
+    console.log("검색어:", searchTerm);
+    //
+
     if (searchTerm.trim() === "") {
       errorResultContainer.innerHTML = "";
       return;
@@ -256,6 +261,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const filteredErrors = gitErrors.filter((err) =>
       err.keywords.some((keyword) => searchTerm.includes(keyword))
     );
+
+    // ----- 디버깅을 위해 아래 2줄 추가 -----
+    console.log("필터링된 결과:", filteredErrors);
+    //
     displayErrorSolutions(filteredErrors);
   });
 

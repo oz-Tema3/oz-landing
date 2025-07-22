@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>식단 관리 | 건강한 삶의 시작</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pretendard&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Pretendard", sans-serif;
+      }
+      body {
+        background-color: #f9f9f9;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background: #4caf50;
+        color: white;
+        text-align: center;
+        padding: 2rem;
+      }
+      header h1 {
+        font-size: 2.5rem;
+      }
+      header p {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+      }
+      .btn-primary {
+        background: white;
+        color: #4caf50;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+        max-width: 1000px;
+        margin: auto;
+      }
+      .section h2 {
+        text-align: center;
+        color: #4caf50;
+        margin-bottom: 1.5rem;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .newsletter,
+      .recommendation {
+        background: #eef8f1;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-top: 3rem;
+      }
+
+      .newsletter input,
+      .recommendation select,
+      .recommendation input {
+        padding: 0.8rem;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        margin: 0.5rem 0;
+        width: 250px;
+        max-width: 90%;
+      }
+
+      .recommendation button {
+        padding: 0.8rem 1.2rem;
+        border-radius: 20px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        margin-top: 1rem;
+        cursor: pointer;
+      }
+
+      .result-box {
+        margin-top: 1rem;
+        background: white;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-top: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>식단 관리로 건강한 삶을 시작하세요</h1>
+      <p>맞춤형 식단으로 더 나은 삶을 설계해보세요</p>
+      <button class="btn-primary">지금 시작하기</button>
+    </header>
+
+    <section class="section">
+      <h2>왜 식단 관리가 중요할까요?</h2>
+      <p>
+        식단 관리는 단순한 체중 조절을 넘어, 전반적인 건강과 직결됩니다. 올바른
+        영양 섭취는 에너지 증진, 면역력 향상, 만성 질환 예방에 큰 영향을 줍니다.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>식단 플랜 예시</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>다이어트 식단</h3>
+          <p>
+            저탄고단 식단으로 체중 감량을 돕습니다. 하루 총 1200kcal 기준 식단.
+          </p>
+        </div>
+        <div class="card">
+          <h3>근육 증진 식단</h3>
+          <p>단백질 위주의 식단으로 근육 생성에 최적화된 구성입니다.</p>
+        </div>
+        <div class="card">
+          <h3>채식 식단</h3>
+          <p>식물 기반 식단으로도 충분한 영양을 섭취할 수 있어요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section recommendation">
+      <h2>AI 맞춤 식단 추천</h2>
+      <p>간단한 정보를 입력하면 당신에게 맞는 식단을 추천해드립니다.</p>
+      <div>
+        <input type="number" id="age" placeholder="나이 입력 (예: 30)" />
+        <br />
+        <select id="goal">
+          <option value="">목표 선택</option>
+          <option value="diet">체중 감량</option>
+          <option value="muscle">근육 증가</option>
+          <option value="maintain">건강 유지</option>
+        </select>
+        <br />
+        <select id="style">
+          <option value="">식단 스타일 선택</option>
+          <option value="normal">일반식</option>
+          <option value="vegetarian">채식</option>
+          <option value="highProtein">고단백</option>
+        </select>
+        <br />
+        <button onclick="recommendDiet()">식단 추천받기</button>
+
+        <div id="result" class="result-box" style="display: none"></div>
+      </div>
+    </section>
+
+    <section class="section newsletter">
+      <h2>무료 식단 가이드를 받아보세요</h2>
+      <p>이메일을 입력하시면 1주일 식단표를 보내드립니다.</p>
+      <input type="email" placeholder="이메일 주소 입력" />
+      <button>구독하기</button>
+    </section>
+
+    <footer>
+      <p>© 2025 식단관리센터 | 이메일: diet@health.com</p>
+    </footer>
+
+    <script>
+      function recommendDiet() {
+        const age = document.getElementById("age").value;
+        const goal = document.getElementById("goal").value;
+        const style = document.getElementById("style").value;
+        const resultBox = document.getElementById("result");
+
+        if (!age || !goal || !style) {
+          resultBox.innerHTML = "모든 정보를 입력해주세요.";
+          resultBox.style.display = "block";
+          return;
+        }
+
+        let result = "";
+
+        if (goal === "diet") {
+          if (style === "vegetarian")
+            result =
+              "채식 기반 저칼로리 식단: 두부, 콩, 야채 샐러드 중심 식단 추천!";
+          else if (style === "highProtein")
+            result =
+              "고단백 다이어트 식단: 닭가슴살, 달걀, 저지방 그릭요거트 중심!";
+          else
+            result = "일반식 다이어트: 현미밥 + 저지방 단백질 + 채소로 구성!";
+        } else if (goal === "muscle") {
+          if (style === "highProtein")
+            result =
+              "단백질 집중 식단: 닭가슴살, 단백질 쉐이크, 삶은 계란 필수!";
+          else if (style === "vegetarian")
+            result =
+              "채식 근육 식단: 렌틸콩, 병아리콩, 견과류 등 식물성 단백질 위주!";
+          else
+            result =
+              "균형잡힌 근육 식단: 복합 탄수화물 + 동물성/식물성 단백질 혼합 추천!";
+        } else if (goal === "maintain") {
+          result =
+            "건강 유지 식단: 정제되지 않은 곡물 + 제철 채소 + 충분한 수분 섭취!";
+        }
+
+        resultBox.innerHTML = `<strong>추천 식단:</strong><br>${result}`;
+        resultBox.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

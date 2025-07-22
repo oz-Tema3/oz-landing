@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Git 명령어 데이터
+  // --- 데이터 정의 ---
   const gitCommands = [
     {
       category: "초기 설정",
@@ -111,9 +111,57 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
+  const gitErrors = [
+    {
+      keywords: ["not a git repository"],
+      title: "fatal: not a git repository (or any of the parent directories)",
+      cause:
+        "Git 명령어를 Git 저장소가 아닌 곳에서 실행했습니다. 폴더를 잘못 찾아 들어갔거나, 아직 `git init`을 하지 않은 상태입니다.",
+      solution:
+        "1. 올바른 프로젝트 폴더로 이동했는지 확인하세요.\n2. 아직 Git 저장소를 만들지 않았다면 아래 명령어를 실행하세요:\n<pre><code>git init</code></pre>",
+    },
+    {
+      keywords: ["remote origin already exists"],
+      title: "fatal: remote origin already exists.",
+      cause:
+        "이미 'origin'이라는 이름의 원격 저장소가 연결되어 있는데, 또 추가하려고 할 때 발생합니다.",
+      solution:
+        "기존 연결을 확인하고, 이름을 바꾸거나 삭제 후 다시 시도하세요.\n1. 연결된 원격 저장소 확인:\n<pre><code>git remote -v</code></pre>\n2. 기존 origin 연결 삭제:\n<pre><code>git remote rm origin</code></pre>",
+    },
+    {
+      keywords: ["failed to push some refs"],
+      title: "error: failed to push some refs to '...' ",
+      cause:
+        "원격 저장소에는 있지만 내 로컬 저장소에는 없는 변경사항(커밋)이 있을 때 발생합니다. 다른 사람이 내가 작업하는 동안 새로운 내용을 푸시한 경우입니다.",
+      solution:
+        "푸시하기 전에 원격 저장소의 최신 내용을 먼저 가져와야 합니다. 아래 명령어로 원격 저장소의 변경사항을 받아온 후 다시 푸시하세요:\n<pre><code>git pull origin [브랜치 이름]</code></pre>",
+    },
+    {
+      keywords: ["does not match any"],
+      title: "error: src refspec [브랜치명] does not match any.",
+      cause:
+        "로컬 저장소에 존재하지 않는 브랜치를 푸시하려고 할 때, 또는 저장소에 아직 아무런 커밋이 없을 때 발생합니다.",
+      solution:
+        '1. 브랜치 이름이 정확한지 확인하세요.\n2. 만약 첫 커밋이라면, 파일을 먼저 커밋해야 합니다:\n<pre><code>git add .\ngit commit -m "Initial commit"</code></pre>',
+    },
+    {
+      keywords: ["pull is not possible because you have unmerged files"],
+      title: "error: pulling is not possible because you have unmerged files.",
+      cause:
+        "이전에 `git pull`이나 `git merge`를 하다가 충돌(conflict)이 발생했고, 아직 해결되지 않은 상태에서 다시 pull을 시도할 때 발생합니다.",
+      solution:
+        "충돌이 발생한 파일들을 먼저 해결하고 커밋해야 합니다.\n1. `git status` 명령어로 충돌난 파일들을 확인하세요.\n2. 해당 파일들을 열어 충돌 부분을 수정한 뒤, 다시 add/commit 하세요.\n<pre><code>git add [충돌 해결한 파일]\ngit commit</code></pre>",
+    },
+  ];
+
+  // --- DOM 요소 선택 ---
   const commandGrid = document.getElementById("commandGrid");
   const searchInput = document.getElementById("searchInput");
   const categoryList = document.getElementById("categoryList");
+  const errorSearchInput = document.getElementById("errorSearchInput");
+  const errorResultContainer = document.getElementById("errorResultContainer");
+
+  // --- 함수 정의 ---
 
   // 명령어 카드를 화면에 표시하는 함수
   function displayCommands(commands) {
@@ -122,11 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("article");
       card.className = "command-card";
       card.innerHTML = `
-                <button class="copy-btn" title="복사하기">📋</button>
-                <h3>${cmd.command}</h3>
-                <p>${cmd.description}</p>
-                <code>${cmd.example}</code>
-            `;
+        <button class="copy-btn" title="복사하기">📋</button>
+        <h3>${cmd.command}</h3>
+        <p>${cmd.description}</p>
+        <code>${cmd.example}</code>
+      `;
       commandGrid.appendChild(card);
 
       // 복사 버튼 이벤트 리스너 추가
@@ -143,7 +191,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 검색 기능 구현
+  // 오류 해결책을 화면에 표시하는 함수
+  function displayErrorSolutions(solutions) {
+    errorResultContainer.innerHTML = "";
+    if (solutions.length === 0) {
+      errorResultContainer.innerHTML =
+        "<p>일치하는 오류 정보를 찾을 수 없습니다.</p>";
+      return;
+    }
+    solutions.forEach((err) => {
+      const card = document.createElement("div");
+      card.className = "error-solution-card";
+      card.innerHTML = `
+        <h3>${err.title}</h3>
+        <h4>원인</h4>
+        <p>${err.cause.replace(/\n/g, "<br>")}</p>
+        <h4>해결책</h4>
+        <div>${err.solution.replace(/\n/g, "<br>")}</div>
+      `;
+      errorResultContainer.appendChild(card);
+    });
+  }
+
+  // --- 이벤트 리스너 설정 ---
+
+  // 명령어 검색 기능
   searchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase();
     const filteredCommands = gitCommands.filter(
@@ -154,14 +226,12 @@ document.addEventListener("DOMContentLoaded", () => {
     displayCommands(filteredCommands);
   });
 
-  // 카테고리 필터링 기능 구현
+  // 카테고리 필터링 기능
   categoryList.addEventListener("click", (e) => {
     if (e.target.tagName === "LI") {
-      // 모든 li 요소에서 'active' 클래스 제거
       document.querySelectorAll("#categoryList li").forEach((li) => {
         li.classList.remove("active");
       });
-      // 클릭된 li 요소에 'active' 클래스 추가
       e.target.classList.add("active");
 
       const category = e.target.dataset.category;
@@ -176,6 +246,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 초기 로드 시 모든 명령어 표시
+  // 오류 검색 기능
+  errorSearchInput.addEventListener("input", (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    if (searchTerm.trim() === "") {
+      errorResultContainer.innerHTML = "";
+      return;
+    }
+    const filteredErrors = gitErrors.filter((err) =>
+      err.keywords.some((keyword) => searchTerm.includes(keyword))
+    );
+    displayErrorSolutions(filteredErrors);
+  });
+
+  // --- 초기 로드 ---
   displayCommands(gitCommands);
 });

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로젝트 핵심 툴 소개</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>프로젝트 핵심 툴</h1>
+      <p>이 프로젝트는 다음 3가지 핵심 툴로 구성.</p>
+    </header>
+
+    <main>
+      <section class="tool-container">
+        <div class="tool-card" id="tool1" onclick="location.href='git.html'">
+          <div class="tool-image">
+            <img
+              src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png"
+              alt="Git 로고"
+            />
+          </div>
+          <h2>Git</h2>
+          <p>버전 관리를 통해 팀원 간 코드 충돌 없이 협업을 진행</p>
+        </div>
+
+        <div class="tool-card" id="tool2" onclick="location.href='notion.html'">
+          <div class="tool-image">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png"
+              alt="Notion 로고"
+            />
+          </div>
+          <h2>Notion</h2>
+          <p>업무 흐름, 일정, 문서 등을 한 곳에서 정리</p>
+        </div>
+
+        <div
+          class="tool-card"
+          id="tool3"
+          onclick="location.href='discord.html'"
+        >
+          <div class="tool-image">
+            <img
+              src="https://cdn.worldvectorlogo.com/logos/discord-6.svg"
+              alt="Discord 로고"
+            />
+          </div>
+          <h2>Discord</h2>
+          <p>실시간 음성 및 채팅으로 소통하며 팀 커뮤니케이션을 강화</p>
+        </div>
+      </section>
+
+      <canvas id="flow-lines"></canvas>
+    </main>
+
+    <footer>
+      <p>© 2025 프로젝트 소개 페이지</p>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

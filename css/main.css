@@ -35,13 +35,23 @@ main {
   position: relative;
 }
 
+.intro-section h2 {
+  text-align: center;
+  margin-bottom: 0.5rem; /* 제목 아래 여백 */
+}
+
+.intro-section p {
+  text-align: center;
+  margin-bottom: 2rem; /* 설명 아래 여백 */
+  line-height: 1.5;
+}
+
 .tool-container {
+  margin-top: 2rem; /* 카드 컨테이너 위쪽 여백 */
   display: flex;
-  justify-content: space-around;
-  gap: 1rem;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 2;
+  justify-content: center; /* 카드들이 가운데 정렬되도록 */
+  gap: 1.5rem; /* 카드 간 간격 */
+  flex-wrap: wrap; /* 반응형으로 줄 바꿈 가능 */
 }
 
 .tool-card {

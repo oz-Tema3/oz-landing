@@ -16,29 +16,28 @@
         padding: 0;
         box-sizing: border-box;
       }
+
+      /* [수정] body, html에서 높이 고정 및 스크롤 숨김 제거 */
       body,
       html {
         font-family: "Noto Sans KR", sans-serif;
-        height: 100%;
-        overflow: hidden; /* Prevent vertical scroll */
         background-color: #1a1a1a;
         color: white;
+        line-height: 1.7; /* 줄 간격 조정 */
       }
       .main-container {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+        /* [수정] flex 및 높이 고정 제거 */
+        width: 100%;
       }
       /* --- 상단 텍스트 섹션 --- */
       .hero-text-section {
-        flex-shrink: 0;
-        height: 35vh; /* 높이 조정 */
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 2rem;
+        padding: 5rem 2rem;
+        min-height: 50vh; /* [수정] min-height로 변경 */
       }
       .hero-text-section h1 {
         font-size: 3.5rem;
@@ -57,16 +56,15 @@
         line-height: 1.8;
       }
 
-      /* --- 중간 툴 소개 섹션 (새로 추가) --- */
+      /* --- 중간 툴 소개 섹션 --- */
       .tools-intro-section {
-        flex-shrink: 0;
-        padding: 2rem;
+        padding: 4rem 2rem;
         position: relative;
       }
       .tool-container {
         display: flex;
-        justify-content: space-around;
-        gap: 1rem;
+        justify-content: center; /* [수정] space-around -> center */
+        gap: 2rem; /* [수정] gap 증가 */
         flex-wrap: wrap;
         position: relative;
         z-index: 2;
@@ -91,7 +89,7 @@
         transform: scale(1.03);
       }
       .tool-image {
-        width: 60px; /* 크기 조정 */
+        width: 60px;
         height: 60px;
         margin: 0 auto 1rem auto;
         display: flex;
@@ -122,20 +120,18 @@
 
       /* --- 하단 슬라이더 섹션 --- */
       .slider-section {
-        flex-grow: 1;
         position: relative;
-        height: 40vh; /* 높이 조정 */
+        padding: 4rem 0;
+        overflow: hidden;
       }
       .slider-container {
         width: 100%;
-        height: 100%;
-        position: relative;
         display: flex;
         transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       }
       .slide {
         min-width: 100%;
-        height: 100%;
+        min-height: 500px; /* [수정] 슬라이드 최소 높이 보장 */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -259,8 +255,11 @@
           font-size: 2.5rem;
         }
         .slide h2 {
-          font-size: 2rem;
-        }
+          font-size: 1.8rem;
+        } /* [수정] 모바일 글자 크기 조정 */
+        .slide p {
+          font-size: 1rem;
+        } /* [수정] 모바일 글자 크기 조정 */
         .tool-container {
           flex-direction: column;
           align-items: center;
@@ -278,7 +277,6 @@
         </p>
       </section>
 
-      <!-- 툴 소개 섹션 (추가) -->
       <section class="tools-intro-section">
         <div class="tool-container">
           <div class="tool-card" id="tool1">
@@ -360,7 +358,7 @@
     </div>
 
     <script>
-      // 슬라이더 로직
+      // --- 슬라이더 로직 ---
       const slider = document.querySelector(".slider-container");
       const slides = document.querySelectorAll(".slide");
       const prevBtn = document.getElementById("prevBtn");
@@ -377,6 +375,7 @@
       });
       const dots = document.querySelectorAll(".dot");
       function updateSlider() {
+        if (!slider) return;
         slider.style.transform = `translateX(-${currentIndex * 100}%)`;
         slides.forEach((slide, i) =>
           slide.classList.toggle("active", i === currentIndex)
@@ -389,27 +388,35 @@
         currentIndex = index;
         updateSlider();
       }
-      nextBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateSlider();
-      });
-      prevBtn.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateSlider();
-      });
-      dotsContainer.addEventListener("click", (e) => {
-        if (e.target.classList.contains("dot")) {
-          goToSlide(Number(e.target.dataset.index));
-        }
-      });
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          updateSlider();
+        });
+      }
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateSlider();
+        });
+      }
+      if (dotsContainer) {
+        dotsContainer.addEventListener("click", (e) => {
+          if (e.target.classList.contains("dot")) {
+            goToSlide(Number(e.target.dataset.index));
+          }
+        });
+      }
       updateSlider();
 
-      // 캔버스 라인 그리기 로직
-      window.addEventListener("load", () => {
+      // --- 캔버스 라인 그리기 로직 (반응형 추가) ---
+      function drawCanvasLines() {
         const canvas = document.getElementById("flow-lines");
         if (!canvas) return;
         const ctx = canvas.getContext("2d");
         const container = document.querySelector(".tools-intro-section");
+
+        // 캔버스 크기를 컨테이너에 맞춤
         canvas.width = container.offsetWidth;
         canvas.height = container.offsetHeight;
 
@@ -442,7 +449,11 @@
         ctx.moveTo(pos2.x, pos2.y);
         ctx.lineTo(pos3.x, pos3.y);
         ctx.stroke();
-      });
+      }
+
+      // 페이지 로드 시 및 창 크기 변경 시 캔버스 다시 그리기
+      window.addEventListener("load", drawCanvasLines);
+      window.addEventListener("resize", drawCanvasLines);
     </script>
   </body>
 </html>

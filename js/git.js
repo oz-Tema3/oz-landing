@@ -62,13 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
       example: "git commit --amend",
     },
     {
-      category: "되돌리기",
-      command: "git reset --hard origin/main",
-      description:
-        "⚠️(주의) 로컬의 모든 변경사항을 버리고, 원격 main 브랜치 상태로 강제 초기화합니다.",
-      example: "git reset --hard origin/main",
-    },
-    {
       category: "브랜치",
       command: "git branch",
       description: "브랜치 목록을 확인합니다.",
@@ -106,17 +99,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       category: "원격 저장소",
-      command: "git pull origin main",
-      description:
-        "원격 main 브랜치의 최신 내용을 가져와 현재 로컬 브랜치에 병합(merge)합니다.",
+      command: "git pull origin <branch>",
+      description: "원격 저장소의 변경 사항을 가져와 병합합니다.",
       example: "git pull origin main",
-    },
-    {
-      category: "원격 저장소",
-      command: "git fetch --all",
-      description:
-        "모든 원격 브랜치의 최신 정보를 로컬로 가져옵니다 (병합은 하지 않음).",
-      example: "git fetch --all",
     },
     {
       category: "원격 저장소",

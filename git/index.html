@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Git Cheat Sheet</title>
+    <link rel="stylesheet" href="../css/git.css" />
+  </head>
+  <body>
+    <header class="hero-section">
+      <div class="hero-content">
+        <h1>더 이상 Git 명령어를 검색하지 마세요.</h1>
+        <p>상황에 맞는 Git 명령어를 가장 빠르고 직관적으로 찾아보세요.</p>
+        <a href="#app-section" class="cta-button">치트 시트 바로 사용하기</a>
+      </div>
+    </header>
+
+    <main id="app-section" class="app-section">
+      <h2>Interactive Git Cheat Sheet</h2>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="'삭제', '취소' 등 키워드로 검색..."
+      />
+
+      <div class="container">
+        <aside class="sidebar">
+          <h3>카테고리</h3>
+          <ul id="categoryList">
+            <li data-category="all" class="active">전체 보기</li>
+            <li data-category="초기 설정">초기 설정</li>
+            <li data-category="파일 관리">파일 관리</li>
+            <li data-category="되돌리기">되돌리기</li>
+            <li data-category="브랜치">브랜치</li>
+            <li data-category="원격 저장소">원격 저장소</li>
+          </ul>
+        </aside>
+
+        <section id="commandGrid" class="command-grid"></section>
+      </div>
+    </main>
+    <section id="error-troubleshooter" class="error-section">
+      <h2>Git 오류 해결사</h2>
+      <p>발생한 오류 메시지를 여기에 붙여넣어 보세요.</p>
+      <input
+        type="text"
+        id="errorSearchInput"
+        placeholder="예: fatal: remote origin already exists."
+      />
+      <div id="errorResultContainer"></div>
+    </section>
+    <footer class="final-cta-section">
+      <h2>지금 바로 당신의 시간을 아끼세요.</h2>
+      <a href="#app-section" class="cta-button">무료로 시작하기</a>
+    </footer>
+
+    <script src="../js/git.js"></script>
+  </body>
+</html>

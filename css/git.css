@@ -1,166 +1,266 @@
-.app-section {
-  padding: 40px 20px;
-  text-align: center;
+/* --- 기본 & 폰트 설정 --- */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Source+Code+Pro&display=swap");
+
+:root {
+  --primary-color: #3b82f6; /* 파란색 */
+  --background-color: #111827; /* 아주 어두운 회색 */
+  --surface-color: #1f2937; /* 어두운 회색 */
+  --text-color: #f3f4f6; /* 밝은 회색 */
+  --subtle-text-color: #9ca3af; /* 중간 회색 */
+  --border-color: #374151;
 }
 
-#searchInput {
-  width: 80%;
-  max-width: 500px;
-  padding: 12px;
-  border-radius: 5px;
-  border: 1px solid var(--border-color);
-  background-color: var(--surface-color);
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: var(--background-color);
   color: var(--text-color);
-  font-size: 1rem;
-  margin-bottom: 30px;
+  margin: 0;
+  line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
-.container {
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  margin-top: 0;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* --- 히어로 섹션 --- */
+.hero-section {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 80vh;
+  padding: 0 2rem;
+  background: linear-gradient(rgba(17, 24, 39, 0.8), var(--background-color)),
+    url("https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=2070&auto=format&fit=crop")
+      no-repeat center center/cover;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: var(--subtle-text-color);
+  margin-bottom: 2rem;
+}
+
+/* --- 공통 버튼 스타일 --- */
+.cta-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #60a5fa;
+  transform: translateY(-3px);
+}
+
+/* --- 메인 앱 섹션 --- */
+.app-section,
+.error-section,
+.final-cta-section {
+  padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 20px;
 }
 
-.sidebar {
-  flex: 0 0 200px;
+.app-section h2,
+.error-section h2,
+.final-cta-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+#searchInput,
+#errorSearchInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
   background-color: var(--surface-color);
-  padding: 20px;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  text-align: left;
-  height: fit-content;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+#searchInput:focus,
+#errorSearchInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+/* --- 컨테이너 (사이드바 + 그리드) --- */
+.container {
+  display: flex;
+  gap: 2rem;
+}
+
+/* --- 사이드바 --- */
+.sidebar {
+  flex: 0 0 200px; /* 너비 고정 */
 }
 
 .sidebar h3 {
-  margin-top: 0;
+  font-size: 1.2rem;
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.sidebar ul {
+#categoryList {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.sidebar li {
-  padding: 10px;
+#categoryList li {
+  padding: 0.75rem;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 5px;
   transition: background-color 0.2s;
 }
 
-.sidebar li:hover,
-.sidebar li.active {
-  background-color: var(--primary-color);
-  color: #000;
+#categoryList li:hover {
+  background-color: var(--surface-color);
 }
 
+#categoryList li.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
+/* --- 명령어 그리드 & 카드 --- */
 .command-grid {
-  flex: 1;
+  flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .command-card {
   background-color: var(--surface-color);
-  padding: 20px;
+  padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid var(--border-color);
-  text-align: left;
-  transition: transform 0.2s;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .command-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .command-card h3 {
-  margin-top: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Source Code Pro", monospace;
+  font-size: 1.1rem;
   color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
 .command-card p {
-  font-size: 0.95rem;
+  color: var(--subtle-text-color);
   margin-bottom: 1rem;
 }
 
-.command-card .copy-btn {
-  background: #333;
-  color: var(--text-color);
+.command-card code {
+  display: block;
+  background-color: var(--background-color);
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-family: "Source Code Pro", monospace;
+  word-break: break-all;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
   border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
+  font-size: 1.2rem;
   cursor: pointer;
-  float: right;
-  transition: background-color 0.2s;
+  opacity: 0.5;
+  transition: opacity 0.2s;
 }
 
-.command-card .copy-btn:hover {
-  background: #444;
+.copy-btn:hover {
+  opacity: 1;
 }
 
+/* --- 오류 해결사 섹션 --- */
 .error-section {
-  padding: 60px 20px;
-  background-color: #1a1a1a;
-  text-align: center;
-}
-
-#errorSearchInput {
-  width: 80%;
-  max-width: 600px;
-  padding: 12px;
-  border-radius: 5px;
-  border: 1px solid var(--border-color);
   background-color: var(--surface-color);
-  color: var(--text-color);
-  font-size: 1rem;
-  margin-bottom: 30px;
-}
-
-#errorResultContainer {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
 }
 
 .error-solution-card {
-  background-color: var(--surface-color);
-  padding: 25px;
+  background-color: var(--background-color);
+  padding: 2rem;
   border-radius: 8px;
-  border-left: 5px solid #ff5555;
-  margin-top: 20px;
+  border: 1px solid var(--border-color);
+  margin-top: 1.5rem;
 }
 
 .error-solution-card h3 {
-  margin-top: 0;
-  color: #ff8a8a;
+  color: #f87171; /* 빨간색 계열 */
+  font-family: "Source Code Pro", monospace;
 }
 
 .error-solution-card h4 {
   color: var(--primary-color);
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
 }
 
 .error-solution-card pre {
-  background-color: var(--bg-color);
-  padding: 15px;
-  border-radius: 5px;
+  background-color: var(--surface-color);
+  padding: 1rem;
+  border-radius: 4px;
   white-space: pre-wrap;
   word-wrap: break-word;
 }
 
+/* --- 마지막 CTA 섹션 --- */
+.final-cta-section {
+  text-align: center;
+}
+
+/* --- 반응형 디자인 --- */
 @media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
   .container {
     flex-direction: column;
   }
-
   .sidebar {
-    flex: 0 0 auto;
-    width: 100%;
-    box-sizing: border-box;
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+  #categoryList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }

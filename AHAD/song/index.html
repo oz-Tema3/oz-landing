@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 작은 정원</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <section id="home-view" class="view active">
+        <header class="view-header">
+          <h1>나의 작은 정원 🌱</h1>
+        </header>
+        <div id="plant-section">
+          <div id="plant-display"></div>
+          <div id="plant-name">새싹</div>
+          <div class="progress-bar-container">
+            <div id="plant-progress" class="progress-bar"></div>
+          </div>
+          <div id="resource-counter">
+            <span>물💧 <span id="water-count">0</span></span>
+            <span>비료✨ <span id="fertilizer-count">0</span></span>
+          </div>
+          <div class="action-buttons">
+            <button id="give-water-btn" class="btn btn-primary">물 주기</button>
+            <button id="give-fertilizer-btn" class="btn btn-secondary">
+              비료 주기
+            </button>
+          </div>
+        </div>
+        <div id="my-challenges-on-home">
+          <h2>오늘의 챌린지</h2>
+          <div id="my-challenges-list"></div>
+        </div>
+      </section>
+
+      <section id="explore-challenges" class="view">
+        <header class="view-header">
+          <h1>새로운 챌린지 찾기 ✨</h1>
+        </header>
+
+        <form id="add-challenge-form" class="card">
+          <h3>나만의 챌린지 만들기</h3>
+          <div class="form-row">
+            <input
+              type="text"
+              id="new-challenge-icon"
+              placeholder="아이콘 (예: 👍)"
+              maxlength="2"
+            />
+            <input
+              type="text"
+              id="new-challenge-title"
+              placeholder="챌린지 제목"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <label>물💧</label>
+            <input type="number" id="new-challenge-water" value="1" min="0" />
+            <label>비료✨</label>
+            <input
+              type="number"
+              id="new-challenge-fertilizer"
+              value="0"
+              min="0"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">추가하기</button>
+        </form>
+
+        <div id="explore-challenges-grid" class="challenge-grid"></div>
+      </section>
+
+      <section id="collection-view" class="view">
+        <header class="view-header">
+          <h1>나의 도감</h1>
+        </header>
+        <div id="collection-grid" class="collection-grid"></div>
+      </section>
+
+      <section id="calendar-view" class="view">
+        <header class="view-header">
+          <h1 id="calendar-title">7월의 기록 📅</h1>
+        </header>
+        <div id="calendar-container">
+          <div class="calendar-header">
+            <div>일</div>
+            <div>월</div>
+            <div>화</div>
+            <div>수</div>
+            <div>목</div>
+            <div>금</div>
+            <div>토</div>
+          </div>
+          <div id="calendar-dates" class="calendar-dates"></div>
+        </div>
+      </section>
+
+      <section id="settings" class="view">
+        <header class="view-header">
+          <h1>설정</h1>
+        </header>
+        <p class="placeholder-text">준비 중입니다.</p>
+      </section>
+    </main>
+
+    <footer>
+      <nav class="bottom-nav">
+        <button data-target="home-view" class="nav-button active">
+          <span class="material-icons">home</span>
+          <span class="nav-text">홈</span>
+        </button>
+        <button data-target="explore-challenges" class="nav-button">
+          <span class="material-icons">search</span>
+          <span class="nav-text">챌린지 탐색</span>
+        </button>
+        <button data-target="calendar-view" class="nav-button">
+          <span class="material-icons">calendar_today</span>
+          <span class="nav-text">나의 기록</span>
+        </button>
+        <button data-target="collection-view" class="nav-button">
+          <span class="material-icons">collections_bookmark</span>
+          <span class="nav-text">나의 도감</span>
+        </button>
+        <button data-target="settings" class="nav-button">
+          <span class="material-icons">settings</span>
+          <span class="nav-text">설정</span>
+        </button>
+      </nav>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

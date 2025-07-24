@@ -313,7 +313,33 @@ a {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+/* --- 홈으로 돌아가기 버튼 --- */
+.home-link-container {
+  position: fixed; /* 화면에 고정 */
+  top: 20px;
+  left: 20px;
+  z-index: 1001; /* 다른 요소들보다 위에 표시 */
+}
 
+.home-link-btn {
+  display: inline-block;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.home-link-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
 /* --- 반응형 디자인 --- */
 @media (max-width: 768px) {
   .hero-content h1 {

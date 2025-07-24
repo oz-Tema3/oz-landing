@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Source+Code+Pro&display=swap");
 
 :root {
-  --primary-color: #3b82f6; /* 파란색 */
+  --primary-color: #8f20f6; /* 파란색 */
   --background-color: #111827; /* 아주 어두운 회색 */
   --surface-color: #1f2937; /* 어두운 회색 */
   --text-color: #f3f4f6; /* 밝은 회색 */
@@ -67,7 +67,7 @@ a {
 }
 
 .cta-button:hover {
-  background-color: #60a5fa;
+  background-color: #9360fa;
   transform: translateY(-3px);
 }
 
@@ -104,7 +104,7 @@ a {
 #errorSearchInput:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(134, 59, 246, 0.5);
 }
 
 /* --- 컨테이너 (사이드바 + 그리드) --- */

@@ -1,0 +1,33 @@
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 10;
+}
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.locationText {
+  font-weight: 700;
+  color: #1f2937;
+}
+.addButton {
+  padding: 0.5rem;
+  background-color: #3b82f6;
+  border-radius: 9999px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: background-color 0.2s;
+}
+.addButton:hover {
+  background-color: #2563eb;
+}
